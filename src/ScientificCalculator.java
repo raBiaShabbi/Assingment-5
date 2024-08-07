@@ -80,6 +80,174 @@ public class ScientificCalculator {
             numbers[i] = createButton(String.valueOf(i), font);
         }
 
+        for(int i = 0;i < 10; i++){
+            int finalI = i;
+            numbers[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textfield.setText(textfield.getText() + numbers[finalI].getText());
+                }
+            });
+        }
+
+        decBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText(textfield.getText() + ".");
+            }
+        });
+
+        addBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Double.parseDouble(textfield.getText());
+                operator = '+';
+                textfield.setText("");
+            }
+        });
+
+        subBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Double.parseDouble(textfield.getText());
+                operator = '-';
+                textfield.setText("");
+            }
+        });
+
+        mulBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Double.parseDouble(textfield.getText());
+                operator = '*';
+                textfield.setText("");
+            }
+        });
+
+        divBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Double.parseDouble(textfield.getText());
+                operator = '/';
+                textfield.setText("");
+            }
+        });
+
+        modeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Double.parseDouble(textfield.getText());
+                operator = '%';
+                textfield.setText("");
+            }
+        });
+
+        powBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Double.parseDouble(textfield.getText());
+                operator = '^';
+                textfield.setText("");
+            }
+        });
+
+        sqrtBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("√" + textfield.getText());
+            }
+        });
+
+        logBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("log" + textfield.getText());
+            }
+        });
+
+        lnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("ln" + textfield.getText());
+            }
+        });
+
+        eBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Math.E;
+                textfield.setText(String.valueOf(num1));
+            }
+        });
+
+        piBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Math.PI;
+                textfield.setText(String.valueOf(num1));
+            }
+        });
+
+        sinBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("sin("+textfield.getText());
+            }
+        });
+
+        tanBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("tan("+textfield.getText());
+            }
+        });
+
+        cosInverseBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("acos("+textfield.getText());
+            }
+        });
+
+        sinInverseBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("asin("+textfield.getText());
+            }
+        });
+
+        tanInverseBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("atan("+textfield.getText());
+            }
+        });
+
+        delBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = textfield.getText();
+                if(s.isEmpty() == false){
+                    s = s.substring(0,s.length()-1);
+                    textfield.setText(s);
+                }
+            }
+        });
+
+        clrBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textfield.setText("");
+            }
+        });
+
+        meanBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         panel.add(sqrtBtn);
         panel.add(powBtn);
         panel.add(logBtn);
