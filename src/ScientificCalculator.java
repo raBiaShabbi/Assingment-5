@@ -6,7 +6,7 @@ public class ScientificCalculator {
     static JFrame frame;
     static JTextField textfield;
     static JPanel panel;
-    static JButton [] numbers = new JButton[9];
+    static JButton [] numbers = new JButton[10];
     static JButton [] arithmeticOperations = new JButton[5];
     static JButton [] trignometicOperations = new JButton[6];
     static JButton [] logarithmicOperations = new JButton[4];
@@ -30,60 +30,60 @@ public class ScientificCalculator {
         frame.setLayout(null);
         frame.setBackground(Color.black);
 
-        Font font = new Font("Arial",Font.BOLD,17);
+        Font font = new Font("myfont",Font.BOLD,13);
 
         textfield = new JTextField();
-        textfield.setBackground(Color.lightGray);
+        textfield.setBackground(Color.white);
         textfield.setBounds(45,25,450,70);
         textfield.setFont(font);
         textfield.setEditable(false);
 
         panel = new JPanel();
-        panel.setBackground(Color.LIGHT_GRAY);
-        panel.setBounds(45,130,450,500);
-        panel.setLayout(new GridLayout(5, 6, 10, 10));
+        panel.setBackground(Color.DARK_GRAY);
+        panel.setBounds(45, 130, 450, 500);
+        panel.setLayout(new GridLayout(6, 6, 10, 10));
 
-        addBtn = new JButton("+");
-        subBtn = new JButton("-");
-        mulBtn = new JButton("*");
-        divBtn = new JButton("/");
-        MODbtn = new JButton("%");
+        addBtn = createButton("+", font);
+        subBtn = createButton("-", font);
+        mulBtn = createButton("*", font);
+        divBtn = createButton("/", font);
+        MODbtn = createButton("%", font);
 
-        meanBtn = new JButton("μ");
-        medianBtn = new JButton("M");
-        modeBtn = new JButton("Mo");
-        SDBtn = new JButton("σ");
+        meanBtn = createButton("μ", font);
+        medianBtn = createButton("M", font);
+        modeBtn = createButton("Mo", font);
+        SDBtn = createButton("σ", font);
 
-        cosBtn = new JButton("cos");
-        sinBtn = new JButton("sin");
-        tanBtn = new JButton("tan");
-        cosInverseBtn = new JButton("cos⁻¹");
-        sinInverseBtn = new JButton("sin⁻¹");
-        tanInverseBtn = new JButton("tan⁻¹");
+        cosBtn = createButton("cos", font);
+        sinBtn = createButton("sin", font);
+        tanBtn = createButton("tan", font);
+        cosInverseBtn = createButton("cos⁻¹", font);
+        sinInverseBtn = createButton("sin⁻¹", font);
+        tanInverseBtn = createButton("tan⁻¹", font);
 
-        logBtn = new JButton("log");
-        lnBtn = new JButton("ln");
-        eBtn = new JButton("e");
+        logBtn = createButton("log", font);
+        lnBtn = createButton("ln", font);
+        eBtn = createButton("e", font);
 
-        powBtn = new JButton("^");
-        sqrtBtn = new JButton("√");
+        powBtn = createButton("^", font);
+        sqrtBtn = createButton("√", font);
 
-        clrBtn = new JButton("C");
-        delBtn = new JButton("D");
-        decBtn = new JButton(".");
-        eqBtn = new JButton("=");
-        piBtn = new JButton("π");
+        clrBtn = createButton("C", font);
+        delBtn = createButton("D", font);
+        decBtn = createButton(".", font);
+        eqBtn = createButton("=", font);
+        piBtn = createButton("π", font);
 
-        panel.add(addBtn);
-        panel.add(subBtn);
-        panel.add(mulBtn);
-        panel.add(divBtn);
+        for (int i = 0; i < 10; i++) {
+            numbers[i] = createButton(String.valueOf(i), font);
+        }
+
+        panel.add(sqrtBtn);
+        panel.add(powBtn);
+        panel.add(logBtn);
+        panel.add(lnBtn);
+        panel.add(eBtn);
         panel.add(MODbtn);
-
-        panel.add(meanBtn);
-        panel.add(medianBtn);
-        panel.add(modeBtn);
-        panel.add(SDBtn);
 
         panel.add(cosBtn);
         panel.add(sinBtn);
@@ -92,18 +92,32 @@ public class ScientificCalculator {
         panel.add(sinInverseBtn);
         panel.add(tanInverseBtn);
 
-        panel.add(logBtn);
-        panel.add(lnBtn);
-        panel.add(eBtn);
+        panel.add(numbers[9]);
+        panel.add(numbers[8]);
+        panel.add(numbers[7]);
+        panel.add(meanBtn);
+        panel.add(medianBtn);
+        panel.add(modeBtn);
 
-        panel.add(powBtn);
-        panel.add(sqrtBtn);
-
-        panel.add(eqBtn);
-        panel.add(decBtn);
-        panel.add(clrBtn);
-        panel.add(delBtn);
+        panel.add(numbers[6]);
+        panel.add(numbers[5]);
+        panel.add(numbers[4]);
+        panel.add(SDBtn);
         panel.add(piBtn);
+        panel.add(decBtn);
+
+        panel.add(numbers[2]);
+        panel.add(numbers[3]);
+        panel.add(numbers[1]);
+        panel.add(addBtn);
+        panel.add(subBtn);
+
+        panel.add(numbers[0]);
+        panel.add(eqBtn);
+        panel.add(mulBtn);
+        panel.add(divBtn);
+        panel.add(delBtn);
+        panel.add(clrBtn);
 
         arithmeticOperations[0] = addBtn;
         arithmeticOperations[1] = sinBtn;
@@ -169,5 +183,12 @@ public class ScientificCalculator {
         frame.add(textfield);
         frame.add(panel);
         frame.setVisible(true);
+    }
+    public static JButton createButton(String text , Font font){
+        JButton button = new JButton(text);
+        button.setFont(font);
+        button.setBackground(Color.LIGHT_GRAY);
+        button.setFocusable(false);
+        return button;
     }
 }
