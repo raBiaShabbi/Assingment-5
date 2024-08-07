@@ -17,6 +17,10 @@ public class StandardCalculator{
     public static void main(String[] args) {
         //create frame
         frame = new JFrame("Standard Calculator");
+
+        Image icon = new ImageIcon("C:\\Users\\saadm\\OneDrive\\Desktop\\summer bootcamp\\A5\\Calculator App\\Calculator Icon.png").getImage();
+        frame.setIconImage(icon);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(500,100,400,550);
         frame.setLayout(null);

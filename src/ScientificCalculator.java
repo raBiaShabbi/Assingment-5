@@ -22,7 +22,7 @@ public class ScientificCalculator {
     public static void main(String[] args) {
         frame = new JFrame("Scientific Calculator");
 
-        Image icon = new ImageIcon("C:/Users/saadm/OneDrive/Desktop/summer bootcamp/A5/Calulator/img.png").getImage();
+        Image icon = new ImageIcon("C:\\Users\\saadm\\OneDrive\\Desktop\\summer bootcamp\\A5\\Calculator App\\Calculator Icon.png").getImage();
         frame.setIconImage(icon);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
