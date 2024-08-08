@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 import java.lang.runtime.SwitchBootstraps;
 
 public class ScientificCalculator {
@@ -19,6 +20,10 @@ public class ScientificCalculator {
     static double [] num = new double[100];
     static int count;
     static double mean;
+    static double mode;
+    static double median;
+    static double sd;
+    static String trignometicFunc;
     static JButton addBtn, subBtn, mulBtn, divBtn, MODbtn,eqBtn, decBtn, clrBtn, delBtn;
     static JButton cosBtn, sinBtn, tanBtn, cosInverseBtn, sinInverseBtn, tanInverseBtn;
     static JButton powBtn, sqrtBtn, piBtn, logBtn, modeBtn, medianBtn, SDBtn, meanBtn, lnBtn, eBtn;
@@ -158,21 +163,27 @@ public class ScientificCalculator {
         sqrtBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textfield.setText("√" + textfield.getText());
+                num1 = Double.parseDouble(textfield.getText());
+                operator = '√';
+                textfield.setText("");
             }
         });
 
         logBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textfield.setText("log" + textfield.getText());
+                num1 = Double.parseDouble(textfield.getText());
+                trignometicFunc = "log";
+                textfield.setText("");
             }
         });
 
         lnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textfield.setText("ln" + textfield.getText());
+                num1 = Double.parseDouble(textfield.getText());
+                trignometicFunc = "ln";
+                textfield.setText("");
             }
         });
 
@@ -192,38 +203,57 @@ public class ScientificCalculator {
             }
         });
 
+        cosBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                num1 = Double.parseDouble(textfield.getText());
+                trignometicFunc = "cos";
+                textfield.setText("");
+            }
+        });
+
         sinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textfield.setText("sin("+textfield.getText());
+                num1 = Double.parseDouble(textfield.getText());
+                trignometicFunc = "sin";
+                textfield.setText("");
             }
         });
 
         tanBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textfield.setText("tan("+textfield.getText());
+                num1 = Double.parseDouble(textfield.getText());
+                trignometicFunc = "tan";
+                textfield.setText("");
             }
         });
 
         cosInverseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textfield.setText("acos("+textfield.getText());
+                num1 = Double.parseDouble(textfield.getText());
+                trignometicFunc = "cos⁻¹";
+                textfield.setText("");
             }
         });
 
         sinInverseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textfield.setText("asin("+textfield.getText());
+                num1 = Double.parseDouble(textfield.getText());
+                trignometicFunc = "sin⁻¹";
+                textfield.setText("");
             }
         });
 
         tanInverseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textfield.setText("atan("+textfield.getText());
+                num1 = Double.parseDouble(textfield.getText());
+                trignometicFunc = "tan⁻¹";
+                textfield.setText("");
             }
         });
 
@@ -242,13 +272,17 @@ public class ScientificCalculator {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textfield.setText("");
+                num1 = 0;
+                num2 = 0;
+                result = 0;
+                operator = '\0';
             }
         });
 
         meanBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!textfield.getText().isEmpty()){
+                if(!textfield.getText().isEmpty() && textfield.getText() != null){
                     num[count] = Double.parseDouble(textfield.getText());
                     count++;
                     operator = 'μ';
@@ -258,7 +292,94 @@ public class ScientificCalculator {
                         sum += num[i];
                     }
                     mean = sum/count;
-                    count = 0;
+                }
+                else {
+                    System.err.println("Error");
+                }
+            }
+        });
+
+        medianBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(textfield.getText() != null && !textfield.getText().isEmpty()) {
+                    num[count] = Double.parseDouble(textfield.getText());
+                    count++;
+                    operator = 'M';
+                    textfield.setText("");
+
+                    double []num_ = Arrays.stream(num).filter(value -> value != 0).toArray();
+                    Arrays.sort(num_);
+                    if(num_.length % 2 != 0){
+                        median = num_[num_.length / 2];
+                    }
+                    else{
+                        median = (num_[num_.length / 2] + (num_[num_.length / 2] + 1 )) / 2;
+                    }
+                }
+                else {
+                    System.err.println("Error");
+                }
+            }
+        });
+
+        modeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(textfield.getText() != null && !textfield.getText().isEmpty()){
+                    num[count] = Double.parseDouble(textfield.getText());
+                    count++;
+                    trignometicFunc = "Mo";
+                    textfield.setText("");
+
+                    int maxCount = 0;
+                    double modeValue = num[0];
+
+                    for (int i = 0; i < count; i++) {
+                        int currentCount = 0;
+                        for (int j = 0; j < count; j++) {
+                            if (num[j] == num[i]) {
+                                currentCount++;
+                            }
+                        }
+                        if (currentCount > maxCount) {
+                            maxCount = currentCount;
+                            modeValue = num[i];
+                        }
+                    }
+
+                    mode = modeValue;
+                }
+                else {
+                    System.err.println("Error");
+                }
+            }
+        });
+
+        SDBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!textfield.getText().isEmpty() && textfield.getText() != null){
+                    num[count] = Double.parseDouble(textfield.getText());
+                    count++;
+                    operator = 'σ';
+                    textfield.setText("");
+                    double sum = 0.0;
+                    for(int i = 0; i < count; i++){
+                        sum += num[i];
+                    }
+                    mean = sum/count;
+
+                    double varianceSum = 0.0;
+                    for (int i = 0; i < count; i++) {
+                        varianceSum += Math.pow(num[i] - mean, 2);
+                    }
+
+                    double variance = varianceSum / (count - 1);
+                    sd = Math.sqrt(variance);
+                }
+                else {
+                    System.err.println("Error");
                 }
             }
         });
@@ -266,56 +387,86 @@ public class ScientificCalculator {
         eqBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (operator == '√') {
-                    // Handle square root operation
-                    result = Math.sqrt(num1); // num2 is not needed
-                    textfield.setText(String.valueOf(result));
-                    return;
-                } else {
-
-                    num2 = Double.parseDouble(textfield.getText());
-                switch (operator){
-                    case '+':{
-                        result = num1 + num2;
+                switch (operator) {
+                    case '+':
+                        result = num1 + Double.parseDouble(textfield.getText());
                         break;
-                    }
-                    case '-':{
-                        result = num1 - num2;
+                    case '-':
+                        result = num1 - Double.parseDouble(textfield.getText());
                         break;
-                    }
-                    case '*':{
-                        result = num1 * num2;
+                    case '*':
+                        result = num1 * Double.parseDouble(textfield.getText());
                         break;
-                    }
-                    case '/':{
-                        if (num2 != 0) {
-                            result = num1 / num2;
-                            textfield.setText(String.valueOf(result));
+                    case '/':
+                        if (Double.parseDouble(textfield.getText()) != 0) {
+                            result = num1 / Double.parseDouble(textfield.getText());
                         } else {
                             textfield.setText("Error");
                             return;
                         }
                         break;
-                    }
-                    case '%':{
-                        if (num2 != 0) {
-                            result = num1 % num2;
+                    case '%':
+                        if (Double.parseDouble(textfield.getText()) != 0) {
+                            result = num1 % Double.parseDouble(textfield.getText());
                         } else {
                             textfield.setText("Error");
                             return;
                         }
                         break;
-                    }
-                    case '^':{
-                        result = Math.pow(num1,num2);
+                    case '√':
+                        result = Math.sqrt(num1);
                         break;
-                    }
-
+                    case '^':
+                        result = Math.pow(num1, Double.parseDouble(textfield.getText()));
+                        break;
+                    case 'μ':
+                        result = mean;
+                        break;
+                    case 'M':
+                        result = median;
+                        break;
+                    case 'σ':
+                        result = sd;
+                        break;
+                    default:
+                        switch (trignometicFunc) {
+                            case "cos":
+                                result = Math.cos(Math.toRadians(num1));
+                                break;
+                            case "sin":
+                                result = Math.sin(Math.toRadians(num1));
+                                break;
+                            case "tan":
+                                result = Math.tan(Math.toRadians(num1));
+                                break;
+                            case "cos⁻¹":
+                                result = Math.acos(num1);
+                                break;
+                            case "sin⁻¹":
+                                result = Math.asin(num1);
+                                break;
+                            case "tan⁻¹":
+                                result = Math.atan(num1);
+                                break;
+                            case "log":
+                                result = Math.log10(num1);
+                                break;
+                            case "ln":
+                                result = Math.log(num1);
+                                break;
+                            case "Mo":
+                                result = mode;
+                                break;
+                        }
+                        break;
                 }
                 textfield.setText(String.valueOf(result));
+                count = 0;
+                Arrays.fill(num, 0.0);
             }
-                }
         });
+
+
 
         panel.add(sqrtBtn);
         panel.add(powBtn);
