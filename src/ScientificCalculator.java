@@ -314,7 +314,7 @@ public class ScientificCalculator {
                         median = num_[num_.length / 2];
                     }
                     else{
-                        median = (num_[num_.length / 2] + (num_[num_.length / 2] + 1 )) / 2;
+                        median = (num_[num_.length / 2] + (num_[num_.length / 2] - 1 )) / 2;
                     }
                 }
                 else {
