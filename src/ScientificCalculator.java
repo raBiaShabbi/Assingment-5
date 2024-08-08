@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.runtime.SwitchBootstraps;
 
 public class ScientificCalculator {
 
@@ -15,6 +16,9 @@ public class ScientificCalculator {
     static JButton [] powerOperation = new JButton[2];
     static JButton [] StatisticalOperation = new JButton[4];
     static JButton [] functions = new JButton[5];
+    static double [] num = new double[100];
+    static int count;
+    static double mean;
     static JButton addBtn, subBtn, mulBtn, divBtn, MODbtn,eqBtn, decBtn, clrBtn, delBtn;
     static JButton cosBtn, sinBtn, tanBtn, cosInverseBtn, sinInverseBtn, tanInverseBtn;
     static JButton powBtn, sqrtBtn, piBtn, logBtn, modeBtn, medianBtn, SDBtn, meanBtn, lnBtn, eBtn;
@@ -133,7 +137,7 @@ public class ScientificCalculator {
             }
         });
 
-        modeBtn.addActionListener(new ActionListener() {
+        MODbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 num1 = Double.parseDouble(textfield.getText());
@@ -244,8 +248,73 @@ public class ScientificCalculator {
         meanBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(!textfield.getText().isEmpty()){
+                    num[count] = Double.parseDouble(textfield.getText());
+                    count++;
+                    operator = 'μ';
+                    textfield.setText("");
+                    double sum = 0.0;
+                    for(int i = 0; i < count; i++){
+                        sum += num[i];
+                    }
+                    mean = sum/count;
+                    count = 0;
+                }
             }
+        });
+
+        eqBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (operator == '√') {
+                    // Handle square root operation
+                    result = Math.sqrt(num1); // num2 is not needed
+                    textfield.setText(String.valueOf(result));
+                    return;
+                } else {
+
+                    num2 = Double.parseDouble(textfield.getText());
+                switch (operator){
+                    case '+':{
+                        result = num1 + num2;
+                        break;
+                    }
+                    case '-':{
+                        result = num1 - num2;
+                        break;
+                    }
+                    case '*':{
+                        result = num1 * num2;
+                        break;
+                    }
+                    case '/':{
+                        if (num2 != 0) {
+                            result = num1 / num2;
+                            textfield.setText(String.valueOf(result));
+                        } else {
+                            textfield.setText("Error");
+                            return;
+                        }
+                        break;
+                    }
+                    case '%':{
+                        if (num2 != 0) {
+                            result = num1 % num2;
+                        } else {
+                            textfield.setText("Error");
+                            return;
+                        }
+                        break;
+                    }
+                    case '^':{
+                        result = Math.pow(num1,num2);
+                        break;
+                    }
+
+                }
+                textfield.setText(String.valueOf(result));
+            }
+                }
         });
 
         panel.add(sqrtBtn);
