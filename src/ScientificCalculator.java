@@ -441,12 +441,15 @@ public class ScientificCalculator {
                                 break;
                             case "cos⁻¹":
                                 result = Math.acos(num1);
+                                result = Math.toDegrees(result);
                                 break;
                             case "sin⁻¹":
                                 result = Math.asin(num1);
+                                result = Math.toDegrees(result);
                                 break;
                             case "tan⁻¹":
                                 result = Math.atan(num1);
+                                result = Math.toDegrees(result);
                                 break;
                             case "log":
                                 result = Math.log10(num1);
